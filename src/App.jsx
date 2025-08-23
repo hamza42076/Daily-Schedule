@@ -7,27 +7,26 @@ import ProductLine from './component/ProductLine'
 import ContactForm from './component/ContactForm'
 
 const App = () => {
-  let [data, setData] = useState([])
-  let [search, setSearch] = useState("")
+  let TodoList = [
+    { Travel: "Dawn Prayer", IsCompleted: false },
+    { Travel: "Recite Quran", IsCompleted: true },
+    { Travel: "Exercise", IsCompleted: false },
+    { Travel: "BreakFast", IsCompleted: false },
+    { Travel: "Shower", IsCompleted: false },
+    { Travel: "Noon Prayer", IsCompleted: false },
+    { Travel: "Recite Quran", IsCompleted: false },
+    { Travel: "Lunch", IsCompleted: false },
+    { Travel: "Nap", IsCompleted: false },
+    { Travel: "Evening Prayer", IsCompleted: true },
+  ]
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch("https://dummyjson.com/products")
-      const result = await response.json()
-      setData(result.products)
-    } catch (error) {
-      console.log(error)
-    }
+  let [action, setAction] = useState(TodoList);
+
+  const ChangeAction = (index) => {
+    const updated = [...action];
+    updated[index].IsCompleted = !updated[index].IsCompleted; // toggle true/false
+    setAction(updated);
   }
-
-  useEffect(() => {
-    fetchData()
-  }, [])
-
-  // Search filter
-  const filterProducts = data.filter((item) =>
-    item.title.toLowerCase().includes(search.toLowerCase())
-  )
 
   return (
     <>
